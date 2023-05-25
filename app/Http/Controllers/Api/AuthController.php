@@ -27,7 +27,7 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
-        return $this->apiSucces([
+        return $this->apiSuccess([
             'token' => $token,
             'token_type' => 'Bareer',
             'user' => $user,
@@ -45,7 +45,7 @@ class AuthController extends Controller
         $user = User::where('email', $validated['email'])->first();
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return $this->apiSucces([
+        return $this->apiSuccess([
             'token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
@@ -55,7 +55,7 @@ class AuthController extends Controller
     public function logout(){
         try{
             auth()->user()->tokens()->delete();
-            return $this->apiSucces('Tokens revoked');
+            return $this->apiSuccess('Tokens revoked');
         }catch (\Throwable $e){
             throw new HttpResponseException($this->apiError(
                 null,
